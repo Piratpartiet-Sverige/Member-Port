@@ -1,5 +1,6 @@
 import ory_kratos_client
 
+from ory_kratos_client.api import public_api
 from ory_kratos_client.rest import ApiException
 from ory_kratos_client.configuration import Configuration
 from typing import Union
@@ -52,9 +53,9 @@ class BaseHandler(RequestHandler):
         session = None
 
         with ory_kratos_client.ApiClient(configuration, cookie="ory_kratos_session=" + session_hash + ";") as api_client:
-            api_instance = ory_kratos_client.PublicApi(api_client)
+            api_instance = public_api.PublicApi(api_client)
             try:
-                api_response = api_instance.whoami()
+                api_response = api_instance.to_session()
                 session = Session()
                 session.id = UUID(api_response.id)
                 session.hash = session_hash

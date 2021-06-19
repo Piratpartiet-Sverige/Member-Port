@@ -78,9 +78,12 @@ serve:
     base_url: http://pirate-kratos:4434
 
 hashers:
+  bcrypt:
+    cost: 12
+  algorithm: bcrypt
   argon2:
     parallelism: 1
-    memory: 131072
+    memory: 131072B
     iterations: 2
     salt_length: 16
     key_length: 16

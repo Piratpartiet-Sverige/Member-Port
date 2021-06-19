@@ -11,9 +11,11 @@
           "type": "object",
           "properties": {
             "first": {
+              "title": "First Name",
               "type": "string"
             },
             "last": {
+              "title": "Last Name",
               "type": "string"
             }
           }
@@ -22,20 +24,25 @@
           "type": "object",
           "properties": {
             "street": {
+              "title": "Street",
               "type": "string"
             },
             "postal_code": {
+              "title": "Street",
               "type": "string"
             },
             "city": {
+              "title": "City",
               "type": "string"
             }
           }
         },
         "municipality": {
+          "title": "Municipality",
           "type": "string"
         },
         "country": {
+          "title": "Country",
           "type": "string"
         },
         "phone": {

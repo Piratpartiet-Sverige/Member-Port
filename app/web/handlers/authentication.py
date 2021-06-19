@@ -1,5 +1,6 @@
 import ory_kratos_client
 
+from ory_kratos_client.api import admin_api
 from ory_kratos_client.rest import ApiException
 from ory_kratos_client.configuration import Configuration
 from app.database.dao.geography import GeographyDao
@@ -15,14 +16,15 @@ class SignInHandler(BaseHandler):
         if (flow == ""):
             return self.redirect("http://127.0.0.1:8888/kratos/self-service/login/browser")
 
-        configuration = Configuration()
-        configuration.host = "http://pirate-kratos:4434"
+        configuration = Configuration(
+            host="http://pirate-kratos:4434"
+        )
 
         csrf_token = ""  # noqa: S105 # nosec
         error = ""
 
         with ory_kratos_client.ApiClient(configuration) as api_client:
-            api_instance = ory_kratos_client.PublicApi(api_client)
+            api_instance = admin_api.AdminApi(api_client)
             try:
                 api_response = api_instance.get_self_service_login_flow(flow)
                 csrf_token = api_response.methods['password'].config.fields[-1].value
@@ -56,7 +58,7 @@ class SignUpHandler(BaseHandler):
         error = ""
 
         with ory_kratos_client.ApiClient(configuration) as api_client:
-            api_instance = ory_kratos_client.AdminApi(api_client)
+            api_instance = admin_api.AdminApi(api_client)
             try:
                 api_response = api_instance.get_self_service_registration_flow(flow)
                 logger.debug(api_response)
